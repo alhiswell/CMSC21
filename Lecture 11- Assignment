@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <stdbool.h> 
+
+void scan_word(int occurences[26]);
+bool is_anagram(int occurences1[26], int occurences2[26]);
+
+int main(void){
+
+    int occurences1[26] = {0},
+        occurences2[26] = {0};
+
+    printf("Enter first word: ");
+    scan_word(occurences1);
+    printf("Enter second word: ");
+    scan_word(occurences2);
+    if (is_anagram(occurences1, occurences2)){
+        printf("The words are anagrams.\n");
+    }
+    else{
+        printf("The words are not anagrams.\n");
+    }
+}
+
+void scan_word(int occurences[26]){  //this will read the characters repetedly to update the occurrences array.
+    char c;
+    while ((c = getchar()) != '\n'){   
+        if (isalpha(c)){
+            occurences[toupper(c) - 'A']++;     
+        }
+    }
+}
+
+bool is_anagram (int occurences1[26], int occurences2[26]){  // this function will check if there is an occurence that a letter is not the same
+    int i;
+    for (i = 0; i < 26; i++) {                
+        if (occurences1[i] != occurences2[i]) {    
+            return false;
+        }
+    }
+    return true;
+}
